@@ -1,15 +1,51 @@
-module.exports = function determinePattern(prices) {
-  let lastPrice;
-  let pattern = {
-    decreasing: true,
-    spikeBig: false,
-    spikeSmall: false,
-    random: false
-  };
+const PATTERN = {
+  SPIKE_BIG: 'spikeBig',
+  SPIKE_SMALL: 'spikeSmall',
+  DECREASING: 'decreasing',
+  RANDOM: 'random',
+};
 
-  for (let i = 0; i < prices.length; i += 1) {
+function determinePattern(prices) {
+  // Start off with the first price since we'll have nothing to compare it to
+  let lastPrice = prices.shift();
+
+  // 1 = increase, 0 = decrease, - = no price defined for comparison
+  let changes = '';
+
+  // Determine whether each price increases or decreases from the previous one
+  prices.forEach(price => {
+    if (price === undefined) {
+      changes += '-';
+    } else if (price > lastPrice) {
+      // Increase
+      changes += '1';
+    } else {
+      // Decrease
+      changes += '0';
+    }
+
+    lastPrice = price;
+  });
+
+  // Try to detect spikes first
+  if (changes.indexOf('1111') >= 0) {
+    // Small Spike
+    return PATTERN.SPIKE_SMALL;
+  } else if (changes.indexOf('111') >= 0) {
+    // Big Spike
+    return PATTERN.SPIKE_BIG;
   }
 
-  // console.log('returning:', pattern);
-  return pattern;
+  // Prepare a separate string of "every price decreases" for comparison to our calculated changes
+  const allDecreasing = new Array(prices.length).fill(0).join('');
+  if (changes === allDecreasing) {
+    return PATTERN.DECREASING;
+  }
+
+  return PATTERN.RANDOM;
+}
+
+module.exports = {
+  PATTERN,
+  determinePattern,
 }
