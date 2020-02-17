@@ -1,4 +1,4 @@
-const determinePattern = require('./turnips');
+const { determinePattern, PATTERN } = require('./turnips');
 
 
 /**
@@ -17,45 +17,35 @@ const random = [73, 172, 93, 37, 12, 112, 43, 39, 99, 97, 29, 78];
 const spikeBigPartial = [73, 72, 69, 80, 92, 112, 98];
 // Could be a big or a small
 const spikePartialEarly = [73, 92, 95, 99];
-const spikeSmallPartial = [73, 72, 69, 50, 49, 80, 92, 103, 81];
+const spikeSmallPartial = [73, 72, 69, 50, 49, 80, 92, 103, 107];
 // Could be a big or small spike (both have at least three consecutive increases)
 const spikeIndeterminate = [73, 72, 69, 80, 92, 112];
 
 test('Decreasing', () => {
-  const pattern = determinePattern(decreasing);
-  expect(pattern.decreasing).toEqual(true);
-  expect(pattern.spikeBig).toEqual(false);
-  expect(pattern.spikeSmall).toEqual(false);
-  expect(pattern.random).toEqual(false);
+  expect(determinePattern(decreasing)).toEqual(PATTERN.DECREASING);
 });
 
 test('Random', () => {
-  const pattern = determinePattern(random);
-  expect(pattern.decreasing).toEqual(false);
-  expect(pattern.spikeBig).toEqual(false);
-  expect(pattern.spikeSmall).toEqual(false);
-  expect(pattern.random).toEqual(true);
+  expect(determinePattern(random)).toEqual(PATTERN.RANDOM);
 });
 
 test('Spike - Small', () => {
-  const pattern = determinePattern(spikeSmall);
-  expect(pattern.decreasing).toEqual(false);
-  expect(pattern.spikeBig).toEqual(false);
-  expect(pattern.spikeSmall).toEqual(true);
-  expect(pattern.random).toEqual(false);
+  expect(determinePattern(spikeSmall)).toEqual(PATTERN.SPIKE_SMALL);
 });
 
 test('Spike - Big', () => {
-  const pattern = determinePattern(spikeBig);
-  expect(pattern.decreasing).toEqual(false);
-  expect(pattern.spikeBig).toEqual(true);
-  expect(pattern.spikeSmall).toEqual(false);
-  expect(pattern.random).toEqual(false);
+  expect(determinePattern(spikeBig)).toEqual(PATTERN.SPIKE_BIG);
 });
 
-// console.log('Spike - Big (Partial):');
-// console.log(determinePattern(spikeBigPartial));
-// console.log('Spike - Small (Partial):');
-// console.log(determinePattern(spikeSmallPartial));
-// console.log('Spike - (Partial, Early):');
-// console.log(determinePattern(spikePartialEarly));
+test('Spike - Big (Partial)', () => {
+  expect(determinePattern(spikeBigPartial)).toEqual(PATTERN.SPIKE_BIG);
+});
+
+test('Spike - Small (Partial)', () => {
+  expect(determinePattern(spikeSmallPartial)).toEqual(PATTERN.SPIKE_SMALL);
+});
+
+test('Spike - (Partial, Early)', () => {
+  expect(determinePattern(spikePartialEarly)).toEqual(PATTERN.SPIKE_BIG);
+});
+
