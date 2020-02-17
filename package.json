@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://MasterKale@github.com/MasterKale/animal-crossing-stalk-market-analyzer.git"
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/MasterKale/animal-crossing-stalk-market-analyzer/issues"
   },
-  "homepage": "https://github.com/MasterKale/animal-crossing-stalk-market-analyzer#readme"
+  "homepage": "https://github.com/MasterKale/animal-crossing-stalk-market-analyzer#readme",
+  "devDependencies": {
+    "jest": "^25.1.0"
+  }
 }
