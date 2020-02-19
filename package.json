@@ -6,6 +6,11 @@
   "types": "dist/index.d.ts",
   "author": "Matthew Miller<matthew@millerti.me>",
   "license": "MIT",
+  "homepage": "https://github.com/MasterKale/animal-crossing-stalk-market-analyzer#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://MasterKale@github.com/MasterKale/animal-crossing-stalk-market-analyzer.git"
+  },
   "scripts": {
     "build": "rimraf dist && tsc",
     "test": "jest",
