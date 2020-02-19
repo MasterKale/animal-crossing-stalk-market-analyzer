@@ -1,4 +1,4 @@
-import { determinePattern, PATTERN } from './turnips';
+import analyze from './index';
 
 /**
  * Assuming all 12 prices
@@ -31,53 +31,53 @@ const week27082018 = [69, 66, 63, 59, 56, 52, 48, 101, 97, 170, 187, 173];
 const week03092018 = [118, 121, 112, 107, 100, 61, 56, 50, 48, 61, 51, 49];
 
 test('Decreasing', () => {
-  expect(determinePattern(decreasing)).toEqual(PATTERN.DECREASING);
+  expect(analyze(decreasing)).toEqual('decreasing');
 });
 
 test('Random', () => {
-  expect(determinePattern(random)).toEqual(PATTERN.RANDOM);
+  expect(analyze(random)).toEqual('random');
 });
 
 test('Spike - Small', () => {
-  expect(determinePattern(spikeSmall)).toEqual(PATTERN.SPIKE_SMALL);
+  expect(analyze(spikeSmall)).toEqual('spikeSmall');
 });
 
 test('Spike - Big', () => {
-  expect(determinePattern(spikeBig)).toEqual(PATTERN.SPIKE_BIG);
+  expect(analyze(spikeBig)).toEqual('spikeBig');
 });
 
 test('Spike - Big (Partial)', () => {
-  expect(determinePattern(spikeBigPartial)).toEqual(PATTERN.SPIKE_BIG);
+  expect(analyze(spikeBigPartial)).toEqual('spikeBig');
 });
 
 test('Spike - Small (Partial)', () => {
-  expect(determinePattern(spikeSmallPartial)).toEqual(PATTERN.SPIKE_SMALL);
+  expect(analyze(spikeSmallPartial)).toEqual('spikeSmall');
 });
 
 test('Spike - (Partial, Early)', () => {
-  expect(determinePattern(spikePartialEarly)).toEqual(PATTERN.SPIKE_BIG);
+  expect(analyze(spikePartialEarly)).toEqual('spikeBig');
 });
 
 test('Indeterminate', () => {
-  expect(determinePattern(spikeIndeterminate)).toEqual(PATTERN.SPIKE_BIG);
+  expect(analyze(spikeIndeterminate)).toEqual('spikeBig');
 });
 
 test('Incomplete', () => {
-  expect(determinePattern(incomplete)).toEqual(PATTERN.UNKNOWN);
+  expect(analyze(incomplete)).toEqual('unknown');
 });
 
 test('week13082018', () => {
-  expect(determinePattern(week13082018)).toEqual(PATTERN.SPIKE_SMALL);
+  expect(analyze(week13082018)).toEqual('spikeSmall');
 });
 
 test('week20082018', () => {
-  expect(determinePattern(week20082018)).toEqual(PATTERN.RANDOM);
+  expect(analyze(week20082018)).toEqual('random');
 });
 
 test('week27082018', () => {
-  expect(determinePattern(week27082018)).toEqual(PATTERN.RANDOM);
+  expect(analyze(week27082018)).toEqual('random');
 });
 
 test('week03092018', () => {
-  expect(determinePattern(week03092018)).toEqual(PATTERN.RANDOM);
+  expect(analyze(week03092018)).toEqual('random');
 });
