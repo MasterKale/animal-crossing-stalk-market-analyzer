@@ -1,7 +1,6 @@
 {
   "name": "ac-stalk-market-analyzer",
   "version": "1.0.0",
-  "private": true,
   "description": "Animal Crossing Stalk Market Analyzer",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
