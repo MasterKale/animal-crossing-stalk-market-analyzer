@@ -19,6 +19,7 @@ const spikePartialEarly = [73, 92, 95, 99];
 const spikeSmallPartial = [73, 72, 69, 50, 49, 80, 92, 103, 107];
 // Could be a big or small spike (both have at least three consecutive increases)
 const spikeIndeterminate = [73, 72, 69, 80, 92, 112];
+const incomplete = [73, 92, undefined, 99];
 
 /**
  * From this Google Sheet on Reddit
@@ -55,6 +56,14 @@ test('Spike - Small (Partial)', () => {
 
 test('Spike - (Partial, Early)', () => {
   expect(determinePattern(spikePartialEarly)).toEqual(PATTERN.SPIKE_BIG);
+});
+
+test('Indeterminate', () => {
+  expect(determinePattern(spikeIndeterminate)).toEqual(PATTERN.SPIKE_BIG);
+});
+
+test('Incomplete', () => {
+  expect(determinePattern(incomplete)).toEqual(PATTERN.UNKNOWN);
 });
 
 test('week13082018', () => {
