@@ -1,11 +1,12 @@
-const PATTERN = {
-  SPIKE_BIG: 'spikeBig',
-  SPIKE_SMALL: 'spikeSmall',
-  DECREASING: 'decreasing',
-  RANDOM: 'random',
+export enum PATTERN {
+  SPIKE_BIG = 'spikeBig',
+  SPIKE_SMALL = 'spikeSmall',
+  DECREASING = 'decreasing',
+  RANDOM = 'random',
+  UNKNOWN = 'unknown',
 };
 
-function determinePattern(prices) {
+export function determinePattern(prices: number[]): PATTERN {
   // Start off with the first price since we'll have nothing to compare it to
   let lastPrice = prices.shift();
 
@@ -14,7 +15,7 @@ function determinePattern(prices) {
 
   // Determine whether each price increases or decreases from the previous one
   prices.forEach(price => {
-    if (price === undefined) {
+    if (lastPrice === undefined || price === undefined) {
       changes += '-';
     } else if (price > lastPrice) {
       // Increase
@@ -43,9 +44,4 @@ function determinePattern(prices) {
   }
 
   return PATTERN.RANDOM;
-}
-
-module.exports = {
-  PATTERN,
-  determinePattern,
 }

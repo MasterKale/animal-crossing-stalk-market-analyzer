@@ -1,5 +1,4 @@
-const { determinePattern, PATTERN } = require('./turnips');
-
+import { determinePattern, PATTERN } from './turnips';
 
 /**
  * Assuming all 12 prices
