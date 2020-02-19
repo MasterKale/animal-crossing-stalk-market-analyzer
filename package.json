@@ -4,6 +4,7 @@
   "description": "Animal Crossing stalk market analyzer",
   "main": "turnips.js",
   "scripts": {
+    "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -20,6 +21,9 @@
   },
   "homepage": "https://github.com/MasterKale/animal-crossing-stalk-market-analyzer#readme",
   "devDependencies": {
-    "jest": "^25.1.0"
+    "@types/jest": "^25.1.2",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.0",
+    "typescript": "^3.7.5"
   }
 }
