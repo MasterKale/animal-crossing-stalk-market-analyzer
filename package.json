@@ -1,25 +1,17 @@
 {
   "name": "animal-crossing-stalk-market-analyzer",
   "version": "1.0.0",
+  "private": true,
   "description": "Animal Crossing stalk market analyzer",
-  "main": "turnips.js",
+  "main": "dist/turnips.js",
+  "types": "dist/turnips.d.ts",
+  "author": "Matthew Miller<matthew@millerti.me>",
+  "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsc",
     "test": "jest",
     "test:watch": "jest --watch"
   },
-  "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "git+https://MasterKale@github.com/MasterKale/animal-crossing-stalk-market-analyzer.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MasterKale/animal-crossing-stalk-market-analyzer/issues"
-  },
-  "homepage": "https://github.com/MasterKale/animal-crossing-stalk-market-analyzer#readme",
   "devDependencies": {
     "@types/jest": "^25.1.2",
     "jest": "^25.1.0",
