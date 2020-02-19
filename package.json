@@ -4,7 +4,7 @@
   "description": "Animal Crossing stalk market analyzer",
   "main": "turnips.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/jest": "^25.1.2",
     "jest": "^25.1.0",
+    "rimraf": "^3.0.2",
     "ts-jest": "^25.2.0",
     "typescript": "^3.7.5"
   }
