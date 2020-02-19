@@ -1,83 +1,51 @@
-# Animal Crossing: New Leaf - Turnip Market Analyzer
+# Animal Crossing Stalk Market Analyzer
 
-CliffsNotes for New Leaf's turnip market economy. Pulled from Thonky: https://www.thonky.com/animal-crossing-new-leaf/stalk-market
+Animal Crossing games feature a weekly "stalk market" with a simple premise: purchase turnips on Sunday, then figure out when to (hopefully) sell them for a profit before the following Sunday. This is a simple library to help predict when you should sell your turnips!
 
-## Selling
+The logic contained within this library was inspired by this stalk market guide on Thonky: https://www.thonky.com/animal-crossing-new-leaf/stalk-market
 
-Reese quotes two prices per day, one at store opening (6am) and another one at 12pm. Assuming Re-Tail is closed on Sundays, that gives **twelve opportunities** to record turnip pricing throughout the week (zero-indexed):
+
+## Intro to selling
+
+Turnip sell prices update twice a day, once at store opening and another one at 12pm. Assuming the store is closed on Sundays, that gives **twelve opportunities** to record turnip pricing throughout the week:
 
 ```
       M  T  W  T  F  S
- 6am  0  2  4  6  8  10
-12pm  1  3  5  7  9  11
+ 6am  1  3  5  7  9  11
+12pm  2  4  6  8  10 12
 ```
 
 If turnips are not sold by 6am on the following Sunday, **they spoil and lose all value!**
 
-> NOTE: If Reese's doesn't open on Sundays till, say, 10AM, then effectively this means you have until store closing sometime Saturday night to sell. Unless there's an opportunity to game the system by visiting someone "in the past" thanks to timezones?
+## Figuring out when to sell
 
-## Buying
+After recording a few sell prices, pass them into this library's `analyze()` method:
 
-Joan sells turnips on Sundays with a price between **90 and 110 bells**.
+```js
+import analyze from 'ac-stalk-market-analyzer';
 
-## Patterns
-
-There are four patterns that turnip prices can follow throughout the week:
-
-- Decreasing
-- Big Spike
-- Small Spike
-- Random
-
-### Decreasing
-
-- Start Price
-  - 50 - 99
-- Characteristic
-  -  Price consistently decreases
-- Sell Condition
-  - If price doesn't increase by Thursday, sell
-
-### Big Spike
-
-- Start Price
-  - 50 - 99
-- Characteristic: Starts with decreasing, but then three consecutive increases; third increase is max for week. After third increase, two consecutive decreases.
-- Sell Condition: Sell on third increase
-
-### Small Spike
-
-- Start Price
-  - 50 - 99
-- Characteristic:
-- Sell Condition:
-
-### Random
-
-- Start Price:
-  - Between 50 - 200
-- Characteristic: Random price increases and decreases in no pattern
-- Sell Condition: Good luck
-
-## Command Ideas
-
-```
-<ac-turnip-register
-1. Recording for today?
-2. (If not: what day?)
-2. Is it after 12pm on your Switch system clock?
-3. What is the price?
+const prices = [73, 72, 69, 80, 92, 112, 98, 95, 35, 32, 20, 17];
+const pattern = analyze(prices);
 ```
 
-Short version?
+The return value will be one of the following strings:
 
-```
-<ac-turnip-register today after 123
-<ac-turnip-register monday before 40
-```
+### "spikeBig"
 
-Analyze input numbers:
+A series of three increases, with the third increase being the maximum sell price. The following two decreases are higher than the average sell price, giving you an opportunity to realize a smaller return before the remaining price decreases rob you of an opportunity for profit.
 
-```
-<ac-turnip-analyze
-```
+### "spikeSmall"
+
+This pattern is similar to `spikeBig`, but is a series of _four_ increases followed by only a single decrease higher than the average, before decreasing from there on.
+
+### "decreasing"
+
+Every sell price change is lower than the one before. If no increase occurs throughout the week, you should sell by Thursday afternoon.
+
+### "random"
+
+Pricing is unpredictable. Pricing will likely jump randomly between 50 and 200 bells.
+
+### "unknown"
+
+There's not enough pricing data to determine a pattern. This is common when some prices are not recorded. The library may still be able to detect a pattern even if you skip recording a couple of prices, though!
