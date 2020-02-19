@@ -6,7 +6,9 @@ export enum PATTERN {
   UNKNOWN = 'unknown',
 };
 
-export function determinePattern(prices: number[]): PATTERN {
+type PRICES = (number | undefined)[];
+
+export function determinePattern(prices: PRICES): PATTERN {
   // Start off with the first price since we'll have nothing to compare it to
   let lastPrice = prices.shift();
 
@@ -43,5 +45,11 @@ export function determinePattern(prices: number[]): PATTERN {
     return PATTERN.DECREASING;
   }
 
+  // No patterns were detected, and we've detected incomplete data
+  if (changes.indexOf('-') >= 0) {
+    return PATTERN.UNKNOWN;
+  }
+
+  // If we get this far we weren't able to discern any pattern
   return PATTERN.RANDOM;
 }
