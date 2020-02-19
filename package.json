@@ -2,9 +2,9 @@
   "name": "ac-stalk-market-analyzer",
   "version": "1.0.0",
   "private": true,
-  "description": "Animal Crossing stalk market analyzer",
-  "main": "dist/turnips.js",
-  "types": "dist/turnips.d.ts",
+  "description": "Animal Crossing Stalk Market Analyzer",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": "Matthew Miller<matthew@millerti.me>",
   "license": "MIT",
   "scripts": {
