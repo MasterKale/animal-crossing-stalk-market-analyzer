@@ -4,6 +4,13 @@ Animal Crossing games feature a weekly "stalk market" with a simple premise: pur
 
 The logic contained within this library was inspired by this stalk market guide on Thonky: https://www.thonky.com/animal-crossing-new-leaf/stalk-market
 
+## Installation
+
+This library is available on NPM:
+
+```
+$> npm install ac-stalk-market-analyzer
+```
 
 ## Intro to selling
 
